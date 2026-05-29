@@ -1,29 +1,678 @@
 ---
-
+import {
+  nav,
+  hero,
+  story,
+  charactersSection,
+  treasuresSection,
+  honorsSection,
+  statsSection,
+  footer,
+} from "../data/site";
 ---
 
 <html lang="zh-CN">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>我的网站</title>
-		<style>
-			body {
-				font-family: system-ui, sans-serif;
-				max-width: 680px;
-				margin: 80px auto;
-				padding: 0 20px;
-				color: #1a1a1a;
-			}
-			h1 { font-size: 2rem; margin-bottom: 8px; }
-			p { line-height: 1.7; color: #444; }
-		</style>
-	</head>
-	<body>
-		<h1>你好，我是 hejinpeng</h1>
-		<p>测试开发工程师，热爱金融投资与 AI 编程。</p>
-		<p>这里是我的个人网站，正在建设中。</p>
-	</body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>凡人修仙传 · 人界篇</title>
+  <meta name="description" content="凡人修仙传人界篇宣传站 - 韩立的修仙之路" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink-full: #0d0d0d;
+      --ink-heavy: #1a1a1a;
+      --ink-medium: #3d3d3d;
+      --ink-light: #6b6b6b;
+      --ink-faint: #a0a0a0;
+      --vermillion: #c03b3b;
+      --vermillion-dark: #8b1a1a;
+      --gold: #c4a84b;
+      --gold-light: #e8d48b;
+      --jade: #5b8c5a;
+      --celadon: #b5c9b0;
+      --parchment: #f5f0e8;
+      --parchment-dark: #e8dfd0;
+      --rice-paper: #fafaf7;
+      --font-display: "Ma Shan Zheng", "ZCOOL KuaiLe", "Noto Serif SC", serif;
+      --font-body: "Noto Serif SC", "Source Han Serif SC", serif;
+      --header-height: 64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--parchment);
+      background-image:
+        radial-gradient(ellipse at 50% 0%, var(--rice-paper) 0%, var(--parchment) 60%),
+        repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.008) 2px, rgba(0,0,0,0.008) 4px);
+      color: var(--ink-full);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.8;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── 导航 ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-height);
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--parchment-dark);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--vermillion-dark);
+      letter-spacing: 0.15em;
+    }
+
+    .nav-brand span {
+      color: var(--ink-light);
+      font-size: 0.9rem;
+      margin-left: 0.6rem;
+      letter-spacing: 0.1em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      color: var(--ink-medium);
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--vermillion);
+      transform: scaleX(0);
+      transition: transform 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--vermillion); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ── 通用 section ── */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--vermillion);
+      letter-spacing: 0.3em;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      color: var(--ink-heavy);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.08em;
+    }
+
+    .section-subtitle {
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      margin-bottom: 3rem;
+      letter-spacing: 0.1em;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px dashed var(--parchment-dark);
+      margin: 0 2rem;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: var(--header-height);
+      position: relative;
+    }
+
+    .hero-mark {
+      width: 50px; height: 50px;
+      border: 1px solid var(--vermillion);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(45deg);
+      margin-bottom: 2rem;
+    }
+
+    .hero-mark span {
+      font-family: var(--font-display);
+      color: var(--vermillion);
+      font-size: 1.4rem;
+      transform: rotate(-45deg);
+    }
+
+    .hero-greet {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--ink-medium);
+      letter-spacing: 0.3em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      color: var(--ink-full);
+      line-height: 1.1;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 0 rgba(192, 59, 59, 0.08);
+    }
+
+    .hero-sub {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      color: var(--vermillion-dark);
+      letter-spacing: 0.3em;
+      margin-bottom: 2rem;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--ink-medium);
+      max-width: 540px;
+      line-height: 2;
+      margin-bottom: 3rem;
+      letter-spacing: 0.05em;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--ink-light);
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, var(--ink-light), transparent);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, 8px); }
+    }
+
+    /* ── 故事简介 ── */
+    .story-text {
+      font-size: 1.05rem;
+      color: var(--ink-medium);
+      line-height: 2.2;
+      letter-spacing: 0.04em;
+    }
+
+    .story-text p { margin-bottom: 1.2rem; }
+
+    .story-text .quote {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--vermillion-dark);
+      text-align: center;
+      margin: 2.5rem 0;
+      letter-spacing: 0.1em;
+      position: relative;
+      padding: 1.5rem 0;
+    }
+
+    .story-text .quote::before,
+    .story-text .quote::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .story-text .quote::before { top: 0; }
+    .story-text .quote::after { bottom: 0; }
+
+    /* ── 人物卡 ── */
+    .characters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .character-card {
+      padding: 2rem 1.5rem;
+      background: var(--rice-paper);
+      border: 1px solid var(--parchment-dark);
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .character-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .character-card::before {
+      content: '';
+      position: absolute;
+      top: 8px; left: 8px; right: 8px; bottom: 8px;
+      border: 1px solid var(--parchment-dark);
+      pointer-events: none;
+    }
+
+    .character-avatar {
+      width: 80px; height: 80px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--ink-full);
+      box-shadow: 0 4px 12px rgba(196, 168, 75, 0.3);
+    }
+
+    .character-name {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--ink-heavy);
+      text-align: center;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.1em;
+    }
+
+    .character-title {
+      font-size: 0.8rem;
+      color: var(--vermillion);
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: 0.15em;
+    }
+
+    .character-desc {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      line-height: 1.9;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── 法宝 ── */
+    .treasures-section {
+      background: linear-gradient(180deg, transparent 0%, rgba(196, 168, 75, 0.04) 50%, transparent 100%);
+    }
+
+    .treasures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .treasure-card {
+      padding: 1.5rem;
+      border-left: 3px solid var(--vermillion);
+      background: var(--rice-paper);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .treasure-card:hover {
+      transform: translateX(4px);
+      background: #fff;
+    }
+
+    .treasure-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .treasure-name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--ink-heavy);
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.05em;
+    }
+
+    .treasure-grade {
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.8rem;
+    }
+
+    .treasure-desc {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      line-height: 1.8;
+    }
+
+    /* ── 荣誉殿堂 ── */
+    .honors-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .honor-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1.5rem;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background: var(--rice-paper);
+      border: 1px solid var(--parchment-dark);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .honor-item:hover {
+      border-color: var(--gold);
+      transform: translateX(6px);
+    }
+
+    .honor-icon {
+      font-size: 2rem;
+    }
+
+    .honor-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .honor-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--ink-heavy);
+      letter-spacing: 0.05em;
+    }
+
+    .honor-desc {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+    }
+
+    .honor-year {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--vermillion-dark);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── 数据概览 ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      padding: 2rem 1rem;
+      text-align: center;
+      background: var(--rice-paper);
+      border: 1px solid var(--parchment-dark);
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      color: var(--vermillion-dark);
+      line-height: 1;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-num small {
+      font-size: 1.2rem;
+      color: var(--ink-light);
+      margin-left: 0.2rem;
+    }
+
+    .stat-name {
+      font-size: 0.85rem;
+      color: var(--ink-light);
+      letter-spacing: 0.15em;
+    }
+
+    /* ── 底部 ── */
+    footer {
+      border-top: 1px solid var(--parchment-dark);
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+      background: var(--rice-paper);
+    }
+
+    .footer-mark {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--vermillion-dark);
+      letter-spacing: 0.2em;
+      margin-bottom: 1rem;
+    }
+
+    .footer-disclaimer {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      letter-spacing: 0.05em;
+      max-width: 600px;
+      margin: 0 auto 1rem;
+      line-height: 1.8;
+    }
+
+    /* ── 响应式 ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-brand span { display: none; }
+      section { padding: 4rem 1.2rem; }
+      .honor-item { grid-template-columns: auto 1fr; padding: 1.2rem; }
+      .honor-year { grid-column: 2; font-size: 1.1rem; }
+    }
+
+    /* ── 入场动画 ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- 导航 -->
+  <nav>
+    <span class="nav-brand">{nav.brand} <span>{nav.subBrand}</span></span>
+    <ul class="nav-links">
+      {nav.links.map(({ href, label }) => (
+        <li><a href={href}>{label}</a></li>
+      ))}
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-mark"><span>{hero.mark}</span></div>
+    <p class="hero-greet">{hero.greet}</p>
+    <h1 class="hero-title">{hero.title}</h1>
+    <h2 class="hero-sub">{hero.sub}</h2>
+    <p class="hero-desc">
+      {hero.desc.map((line, i) => (
+        <>{i > 0 && <br />}{line}</>
+      ))}
+    </p>
+    <div class="scroll-hint">{hero.scrollHint}</div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 故事简介 -->
+  <section id={story.id} class="fade-in">
+    <p class="section-label">{story.label}</p>
+    <h2 class="section-title">{story.title}</h2>
+    <p class="section-subtitle">{story.subtitle}</p>
+    <div class="story-text">
+      {story.blocks.map((b) =>
+        b.type === "quote"
+          ? <p class="quote">{b.text}</p>
+          : <p>{b.text}</p>
+      )}
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 人物 -->
+  <section id={charactersSection.id} class="fade-in">
+    <p class="section-label">{charactersSection.label}</p>
+    <h2 class="section-title">{charactersSection.title}</h2>
+    <p class="section-subtitle">{charactersSection.subtitle}</p>
+    <div class="characters-grid">
+      {charactersSection.items.map((c) => (
+        <div class="character-card">
+          <div class="character-avatar">{c.initial}</div>
+          <h3 class="character-name">{c.name}</h3>
+          <p class="character-title">{c.title}</p>
+          <p class="character-desc">{c.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 法宝 -->
+  <section id={treasuresSection.id} class="fade-in treasures-section">
+    <p class="section-label">{treasuresSection.label}</p>
+    <h2 class="section-title">{treasuresSection.title}</h2>
+    <p class="section-subtitle">{treasuresSection.subtitle}</p>
+    <div class="treasures-grid">
+      {treasuresSection.items.map((t) => (
+        <div class="treasure-card">
+          <div class="treasure-icon">{t.icon}</div>
+          <h3 class="treasure-name">{t.name}</h3>
+          <p class="treasure-grade">{t.grade}</p>
+          <p class="treasure-desc">{t.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 荣誉殿堂 -->
+  <section id={honorsSection.id} class="fade-in">
+    <p class="section-label">{honorsSection.label}</p>
+    <h2 class="section-title">{honorsSection.title}</h2>
+    <p class="section-subtitle">{honorsSection.subtitle}</p>
+    <div class="honors-list">
+      {honorsSection.items.map((h) => (
+        <div class="honor-item">
+          <span class="honor-icon">{h.icon}</span>
+          <div class="honor-content">
+            <span class="honor-title">{h.title}</span>
+            <span class="honor-desc">{h.desc}</span>
+          </div>
+          <span class="honor-year">{h.year}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 数据概览 -->
+  <section id={statsSection.id} class="fade-in">
+    <p class="section-label">{statsSection.label}</p>
+    <h2 class="section-title">{statsSection.title}</h2>
+    <p class="section-subtitle">{statsSection.subtitle}</p>
+    <div class="stats-grid">
+      {statsSection.items.map((s) => (
+        <div class="stat-card">
+          <div class="stat-num">{s.num}{s.unit && <small>{s.unit}</small>}</div>
+          <div class="stat-name">{s.name}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 底部 -->
+  <footer>
+    <div class="footer-mark">{footer.mark}</div>
+    <p class="footer-disclaimer">
+      {footer.disclaimer.map((line, i) => (
+        <>{i > 0 && <br />}{line}</>
+      ))}
+    </p>
+  </footer>
+
+  <script>
+    // 滚动入场动画
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
 </html>
